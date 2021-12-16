@@ -8,6 +8,10 @@ import nz.codehq.duonghds.iot.dao.DataDeviceEntity;
 import nz.codehq.duonghds.iot.dto.DataDeviceDto;
 import org.springframework.stereotype.Component;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class DataDeviceMapping {
 
@@ -15,27 +19,39 @@ public class DataDeviceMapping {
 
     public DataDeviceDto entityToDto(DataDeviceEntity entity) {
         JsonNode dataJson = null;
-        try{
+        try {
             dataJson = objectMapper.readTree(entity.getData());
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (JsonProcessingException e) {
+            //just pass/ignore data invalid and log it
+            System.out.printf("[Mapping data invalid]%s - %s\n", entity.getDeviceId(), entity.getData());
             e.printStackTrace();
+
         }
         return new DataDeviceDto(
                 entity.getDeviceId(),
                 entity.getLatitude(),
                 entity.getLongitude(),
-                dataJson
+                dataJson,
+                entity.getCreatedAt()
+
         );
     }
 
-    public DataDeviceEntity dtoToEntity(DataDeviceDto dto) {
-        return DataDeviceEntity.builder()
-                .deviceId(dto.getDeviceId())
-                .latitude(dto.getLatitude())
-                .longitude(dto.getLongitude())
-                .data(dto.getData().toString())
-                .build();
+    public List<DataDeviceDto> entitiesToDtos(List<DataDeviceEntity> entities) {
+        List<DataDeviceDto> dtos = new ArrayList<>();
+        for (DataDeviceEntity entity : entities) {
+            DataDeviceDto dto = entityToDto(entity);
+            dtos.add(dto);
+        }
+        return dtos;
     }
-}
+
+        public DataDeviceEntity dtoToEntity (DataDeviceDto dto){
+            return DataDeviceEntity.builder()
+                    .deviceId(dto.getDeviceId())
+                    .latitude(dto.getLatitude())
+                    .longitude(dto.getLongitude())
+                    .data(dto.getData().toString())
+                    .build();
+        }
+    }

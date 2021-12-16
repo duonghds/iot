@@ -1,11 +1,17 @@
 package nz.codehq.duonghds.iot.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import nz.codehq.duonghds.iot.dto.BaseResponseDto;
 import nz.codehq.duonghds.iot.dto.DataDeviceDto;
+import nz.codehq.duonghds.iot.dto.ListDataDeviceDto;
 import nz.codehq.duonghds.iot.service.DataDeviceService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/devices")
@@ -42,8 +48,16 @@ public class DataDeviceController {
     }
 
     @GetMapping(path = "/{deviceId}")
-    public ResponseEntity<BaseResponseDto<?>> getDevicesData(@PathVariable(value = "deviceId") String deviceId) {
-        System.out.println("deviceId = " + deviceId);
-        return ResponseEntity.ok().body(new BaseResponseDto("success", "success", null));
+    public ResponseEntity<BaseResponseDto<ListDataDeviceDto>> getDevicesData(
+            @PathVariable(value = "deviceId") String deviceId,
+            @RequestParam(name = "start", required = false ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
+            @RequestParam(name = "end", required = false ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date end) {
+        System.out.println("start = " + start);
+        System.out.println("end = " + end);
+        ListDataDeviceDto listDataDevice = dataDeviceService.findByDeviceIdAndTime(deviceId, start, end);
+        if(listDataDevice == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(new BaseResponseDto<>("success", "success", listDataDevice));
     }
 }

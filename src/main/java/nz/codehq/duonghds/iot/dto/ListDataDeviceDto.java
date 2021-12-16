@@ -6,16 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.util.List;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
-public class DataDeviceDto {
+public class ListDataDeviceDto {
     private String deviceId;
     private float latitude;
     private float longitude;
-    private JsonNode data;
-    private Date timestamp;
+    private List<JsonNode> data;
 }
