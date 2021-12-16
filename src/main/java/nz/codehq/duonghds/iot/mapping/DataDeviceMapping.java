@@ -31,11 +31,11 @@ public class DataDeviceMapping {
     }
 
     public DataDeviceEntity dtoToEntity(DataDeviceDto dto) {
-        return new DataDeviceEntity(
-                dto.getDeviceId(),
-                dto.getLatitude(),
-                dto.getLongitude(),
-                dto.getData().toString()
-        );
+        return DataDeviceEntity.builder()
+                .deviceId(dto.getDeviceId())
+                .latitude(dto.getLatitude())
+                .longitude(dto.getLongitude())
+                .data(dto.getData().toString())
+                .build();
     }
 }
