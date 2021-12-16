@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataDeviceMapping {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public DataDeviceDto entityToDto(DataDeviceEntity entity) {
         JsonNode dataJson = null;

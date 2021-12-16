@@ -3,7 +3,6 @@ package nz.codehq.duonghds.iot.controller;
 import nz.codehq.duonghds.iot.dto.BaseResponseDto;
 import nz.codehq.duonghds.iot.dto.DataDeviceDto;
 import nz.codehq.duonghds.iot.service.DataDeviceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api/devices")
 public class DataDeviceController {
 
-    @Autowired
-    private DataDeviceService dataDeviceService;
+    private final DataDeviceService dataDeviceService;
+
+    public DataDeviceController(DataDeviceService dataDeviceService) {
+        this.dataDeviceService = dataDeviceService;
+    }
 
     @PostMapping(path = "/")
     public ResponseEntity<BaseResponseDto<?>> saveDeviceData(@Validated @RequestBody DataDeviceDto data) {

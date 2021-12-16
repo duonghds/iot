@@ -13,11 +13,14 @@ import org.springframework.stereotype.Service;
 @Primary
 public class DataDeviceServiceImpl implements DataDeviceService{
 
-    @Autowired
-    private DataDeviceRepository dataDeviceRepository;
+    private final DataDeviceRepository dataDeviceRepository;
 
-    @Autowired
-    private DataDeviceMapping dataDeviceMapping;
+    private final DataDeviceMapping dataDeviceMapping;
+
+    public DataDeviceServiceImpl(DataDeviceRepository dataDeviceRepository, DataDeviceMapping dataDeviceMapping) {
+        this.dataDeviceRepository = dataDeviceRepository;
+        this.dataDeviceMapping = dataDeviceMapping;
+    }
 
     @Override
     public void save(DataDeviceDto dataDeviceDto) {
