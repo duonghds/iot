@@ -8,6 +8,13 @@ public class DataDeviceDto {
     private float longitude;
     private JsonNode data;
 
+    public DataDeviceDto(String deviceId, float latitude, float longitude, JsonNode data) {
+        this.deviceId = deviceId;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.data = data;
+    }
+
     public String getDeviceId() {
         return deviceId;
     }

@@ -17,7 +17,26 @@ public class DataDeviceController {
 
     @PostMapping(path = "/")
     public ResponseEntity<BaseResponseDto<?>> saveDeviceData(@Validated @RequestBody DataDeviceDto data) {
-        return ResponseEntity.ok().body(new BaseResponseDto("success", "success", null));
+        if(data.getDeviceId().isEmpty()) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new BaseResponseDto<>("deviceId is empty", "failed", null));
+        }
+        if(data.getLatitude() > 90 || data.getLatitude() < -90) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new BaseResponseDto<>("latitude is invalid", "failed", null));
+        }
+        if(data.getLongitude() > 180 || data.getLongitude() < -180) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new BaseResponseDto<>("longitude is invalid", "failed", null));
+        }
+        dataDeviceService.save(data);
+
+        return ResponseEntity
+                .ok()
+                .body(new BaseResponseDto<>("success", "success", null));
     }
 
     @GetMapping(path = "/{deviceId}")

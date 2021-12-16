@@ -1,9 +1,8 @@
 package nz.codehq.duonghds.iot.service;
 
 
-import com.fasterxml.jackson.databind.JsonNode;
+import nz.codehq.duonghds.iot.dto.DataDeviceDto;
 
 public interface DataDeviceService {
-    void save();
-    JsonNode[] getData();
+    void save(DataDeviceDto dataDeviceDto);
 }
