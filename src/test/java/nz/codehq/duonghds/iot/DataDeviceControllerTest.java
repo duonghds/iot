@@ -6,9 +6,10 @@ import static org.hamcrest.Matchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nz.codehq.duonghds.iot.controller.DataDeviceController;
-import nz.codehq.duonghds.iot.dao.DataDeviceEntity;
+import nz.codehq.duonghds.iot.dto.ListDataDeviceDto;
+import nz.codehq.duonghds.iot.entity.DataDeviceEntity;
 import nz.codehq.duonghds.iot.database.DataDeviceRepository;
-import nz.codehq.duonghds.iot.service.DataDeviceServiceImpl;
+import nz.codehq.duonghds.iot.service.DataDeviceService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class DataDeviceControllerTest {
     @MockBean
     DataDeviceRepository dataDeviceRepository;
     @MockBean
-    DataDeviceServiceImpl dataDeviceServiceImpl;
+    DataDeviceService dataDeviceService;
     @Autowired
     ObjectMapper mapper;
     @Autowired
@@ -38,7 +39,6 @@ public class DataDeviceControllerTest {
                 .longitude(120.0f)
                 .data("{\"test_key\":\"test_value\"}")
                 .build();
-        //Mockito.when(dataDeviceRepository.save(dataDeviceEntity)).thenReturn(dataDeviceEntity);
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/api/devices/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -91,5 +91,29 @@ public class DataDeviceControllerTest {
                 .andExpect(jsonPath("$", notNullValue()))
                 .andExpect(jsonPath("$.status", is("failed")))
                 .andExpect(jsonPath("$.message", is("longitude is invalid")));
+    }
+
+    @Test
+    public void get_by_device_id_success() throws Exception {
+        Mockito.when(dataDeviceService.findByDeviceIdAndTime("device_test", null, null))
+                .thenReturn(ListDataDeviceDto.builder()
+                        .deviceId("device_test")
+                        .build());
+        MockHttpServletRequestBuilder mockRequest =
+                MockMvcRequestBuilders.get("/api/devices/device_test");
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", notNullValue()))
+                .andExpect(jsonPath("$.data.deviceId", is("device_test")));
+    }
+
+    @Test
+    public void get_by_device_id_not_found() throws Exception {
+        Mockito.when(dataDeviceService.findByDeviceIdAndTime("device_test", null, null))
+                .thenReturn(null);
+        MockHttpServletRequestBuilder mockRequest =
+                MockMvcRequestBuilders.get("/api/devices/device_test");
+        mockMvc.perform(mockRequest)
+                .andExpect(status().isNotFound());
     }
 }

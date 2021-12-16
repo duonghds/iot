@@ -52,8 +52,6 @@ public class DataDeviceController {
             @PathVariable(value = "deviceId") String deviceId,
             @RequestParam(name = "start", required = false ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
             @RequestParam(name = "end", required = false ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date end) {
-        System.out.println("start = " + start);
-        System.out.println("end = " + end);
         ListDataDeviceDto listDataDevice = dataDeviceService.findByDeviceIdAndTime(deviceId, start, end);
         if(listDataDevice == null) {
             return ResponseEntity.notFound().build();

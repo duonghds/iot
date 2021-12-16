@@ -1,4 +1,4 @@
-package nz.codehq.duonghds.iot.dao;
+package nz.codehq.duonghds.iot.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +29,6 @@ public class DataDeviceEntity {
     @Column(name = "data")
     private String data;
     @CreationTimestamp
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP")
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
     private Date createdAt;
 }

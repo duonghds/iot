@@ -1,19 +1,17 @@
-package nz.codehq.duonghds.iot.mapping;
+package nz.codehq.duonghds.iot.mapper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nz.codehq.duonghds.iot.dao.DataDeviceEntity;
+import nz.codehq.duonghds.iot.entity.DataDeviceEntity;
 import nz.codehq.duonghds.iot.dto.DataDeviceDto;
 import org.springframework.stereotype.Component;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class DataDeviceMapping {
+public class DataDeviceMapper {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 

@@ -4,15 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import nz.codehq.duonghds.iot.dao.DataDeviceEntity;
+import nz.codehq.duonghds.iot.entity.DataDeviceEntity;
 import nz.codehq.duonghds.iot.database.DataDeviceRepository;
 import nz.codehq.duonghds.iot.dto.DataDeviceDto;
 import nz.codehq.duonghds.iot.dto.ListDataDeviceDto;
-import nz.codehq.duonghds.iot.mapping.DataDeviceMapping;
+import nz.codehq.duonghds.iot.mapper.DataDeviceMapper;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,9 +23,9 @@ public class DataDeviceServiceImpl implements DataDeviceService {
 
     private final DataDeviceRepository dataDeviceRepository;
 
-    private final DataDeviceMapping dataDeviceMapping;
+    private final DataDeviceMapper dataDeviceMapping;
 
-    public DataDeviceServiceImpl(DataDeviceRepository dataDeviceRepository, DataDeviceMapping dataDeviceMapping) {
+    public DataDeviceServiceImpl(DataDeviceRepository dataDeviceRepository, DataDeviceMapper dataDeviceMapping) {
         this.dataDeviceRepository = dataDeviceRepository;
         this.dataDeviceMapping = dataDeviceMapping;
     }
@@ -49,7 +48,6 @@ public class DataDeviceServiceImpl implements DataDeviceService {
             if(end == null) end = new Date();
             listDataDevices = dataDeviceRepository.findAllByDeviceIdAndCreatedAtBetween(deviceId, start, end);
         }
-
         List<DataDeviceDto> dataDeviceDtos = dataDeviceMapping.entitiesToDtos(listDataDevices);
         if(dataDeviceDtos.size() == 0) {
             return null;
