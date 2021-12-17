@@ -8,13 +8,12 @@ device data.
 - IDE: Intellij
 - Build tool: Gradle
 - Lib support: 
-    + Spring Boot Starter Data JPA
-    + Spring Boot Starter Web
-    + MySQL Connector
-    + Spring Boot Devtools
-    + Lombok
-    + Spring Boot Starter Test
-    + H2 Database
+    + Spring Boot Starter Data JPA (Use to connect and read/write with database)
+    + Spring Boot Starter Web (Use to build REST API)
+    + MySQL Connector (MySQL driver)
+    + Lombok (Use to support generate code: getter, setter, builder, constructor....)
+    + Spring Boot Starter Test (Support testing)
+    + H2 Database (Support testing)
 
 ## API/End-Point
 - Record data device: `POST /api/device/`
