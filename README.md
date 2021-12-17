@@ -3,7 +3,7 @@
 to store device data and o retrieve time series of stored
 device data.
 
-##Technologies
+## Technologies
 - Framework: Spring boot
 - IDE: Intellij
 - Build tool: Gradle
@@ -20,6 +20,7 @@ device data.
 - Record data device: `POST /api/device/`
 <br />
 Post payload example
+
 ```json
 {
   "deviceId": "device4",
@@ -34,10 +35,12 @@ Post payload example
   }
 }
 ```
+
 - Get time-series data device: `GET /api/device/${device_id}`
 - Optional params `start`,`end` with `timestamp`. Example: `?start=1639605600000&end=1639605600000`
 <br />
 Response example
+
 ```json
 {
     "message": "success",
@@ -98,7 +101,7 @@ to the ones you need, you just work with interface.
 
 ## How I apply SOLID principle
 - DataDeviceService just work with DataDeviceDto. It Single Responsibility
-- DataDeviceController recive an interface of DataDeviceService, not an implement.
+- DataDeviceController receive an interface of DataDeviceService, not an implement.
   It Dependency inversion.
 - This project too small to applies Open/closed, Liskov Substitution, Interface Segregation principle.
 - But with SOLID principle, it should be used correctly and become a habit when coding,
@@ -109,5 +112,7 @@ don't push it in.
 - Design and structure project: 1 hour
 - Coding with test: 4 hours
 - Build and testing: 1 hour
-- DocumentationL 1 hour
+- Documentation: 30 min
+- Deploy heroku: 30 min
+- Grand total: 8 hours
 
