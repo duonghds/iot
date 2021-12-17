@@ -37,16 +37,17 @@ public class DataDeviceServiceImpl implements DataDeviceService {
     }
 
     @Override
-    public ListDataDeviceDto findByDeviceIdAndTime(String deviceId, Date start, Date end) {
+    public ListDataDeviceDto findByDeviceIdAndTime(String deviceId, Long start, Long end) {
         List<DataDeviceEntity> listDataDevices = new ArrayList<>();
         //request without start and end
         if (start == null && end == null) {
             listDataDevices = dataDeviceRepository.findAllByDeviceId(deviceId);
         } else if (start == null) {//request with end
-            listDataDevices = dataDeviceRepository.findAllByDeviceIdAndCreatedAtBefore(deviceId, end);
+            listDataDevices = dataDeviceRepository.findAllByDeviceIdAndCreatedAtBefore(deviceId, new Date(end));
         } else {//request with start or both start and end
-            if(end == null) end = new Date();
-            listDataDevices = dataDeviceRepository.findAllByDeviceIdAndCreatedAtBetween(deviceId, start, end);
+            if(end == null) end = new Date().getTime();
+            listDataDevices =
+                    dataDeviceRepository.findAllByDeviceIdAndCreatedAtBetween(deviceId, new Date(start), new Date(end));
         }
         List<DataDeviceDto> dataDeviceDtos = dataDeviceMapping.entitiesToDtos(listDataDevices);
         if(dataDeviceDtos.size() == 0) {

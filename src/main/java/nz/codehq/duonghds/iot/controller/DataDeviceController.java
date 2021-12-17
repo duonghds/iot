@@ -50,8 +50,8 @@ public class DataDeviceController {
     @GetMapping(path = "/{deviceId}")
     public ResponseEntity<BaseResponseDto<ListDataDeviceDto>> getDevicesData(
             @PathVariable(value = "deviceId") String deviceId,
-            @RequestParam(name = "start", required = false ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
-            @RequestParam(name = "end", required = false ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date end) {
+            @RequestParam(name = "start", required = false ) Long start,
+            @RequestParam(name = "end", required = false ) Long end) {
         ListDataDeviceDto listDataDevice = dataDeviceService.findByDeviceIdAndTime(deviceId, start, end);
         if(listDataDevice == null) {
             return ResponseEntity.notFound().build();

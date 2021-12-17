@@ -9,5 +9,5 @@ import java.util.Date;
 
 public interface DataDeviceService {
     void save(DataDeviceDto dataDeviceDto);
-    ListDataDeviceDto findByDeviceIdAndTime(String deviceId, Date start, Date end);
+    ListDataDeviceDto findByDeviceIdAndTime(String deviceId, Long start, Long end);
 }
