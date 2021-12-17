@@ -1,1 +1,1 @@
-web: java -jar target/iot-0.0.1-plain.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/iot-0.0.1-SNAPSHOT.jar
