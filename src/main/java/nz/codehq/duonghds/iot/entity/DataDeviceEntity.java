@@ -17,7 +17,7 @@ import java.util.Date;
 @Table(name = "data_device")
 public class DataDeviceEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq-gen")
     @Column(name = "id")
     private int id;
     @Column(name = "device_id")
