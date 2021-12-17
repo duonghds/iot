@@ -35,6 +35,7 @@ Post payload example
 }
 ```
 - Get time-series data device: `GET /api/device/${device_id}`
+- Optional params `start`,`end` with `timestamp`. Example: `?start=1639605600000&end=1639605600000`
 <br />
 Response example
 ```json

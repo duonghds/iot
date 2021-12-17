@@ -1,6 +1,5 @@
 package nz.codehq.duonghds.iot.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import nz.codehq.duonghds.iot.dto.BaseResponseDto;
 import nz.codehq.duonghds.iot.dto.DataDeviceDto;
 import nz.codehq.duonghds.iot.dto.ListDataDeviceDto;
@@ -11,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/devices")
@@ -50,8 +48,10 @@ public class DataDeviceController {
     @GetMapping(path = "/{deviceId}")
     public ResponseEntity<BaseResponseDto<ListDataDeviceDto>> getDevicesData(
             @PathVariable(value = "deviceId") String deviceId,
-            @RequestParam(name = "start", required = false ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
-            @RequestParam(name = "end", required = false ) @DateTimeFormat(pattern = "yyyy-MM-dd") Date end) {
+            @RequestParam(name = "start", required = false ) Long start,
+            @RequestParam(name = "end", required = false ) Long end) {
+        System.out.println("start = " + start);
+        System.out.println("end = " + end);
         ListDataDeviceDto listDataDevice = dataDeviceService.findByDeviceIdAndTime(deviceId, start, end);
         if(listDataDevice == null) {
             return ResponseEntity.notFound().build();
