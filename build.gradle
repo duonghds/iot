@@ -27,6 +27,12 @@ dependencies {
 
 }
 
+jar {
+	manifest {
+		attributes 'Main-Class': 'nz.codehq.duonghds.iot.IotApplication'
+	}
+}
+
 test {
 	useJUnitPlatform()
 }
