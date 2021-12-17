@@ -50,8 +50,6 @@ public class DataDeviceController {
             @PathVariable(value = "deviceId") String deviceId,
             @RequestParam(name = "start", required = false ) Long start,
             @RequestParam(name = "end", required = false ) Long end) {
-        System.out.println("start = " + start);
-        System.out.println("end = " + end);
         ListDataDeviceDto listDataDevice = dataDeviceService.findByDeviceIdAndTime(deviceId, start, end);
         if(listDataDevice == null) {
             return ResponseEntity.notFound().build();
