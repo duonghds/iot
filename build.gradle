@@ -28,6 +28,8 @@ dependencies {
 }
 
 jar {
+	baseName('iot')
+	version('0.0.1')
 	manifest {
 		attributes 'Main-Class': 'nz.codehq.duonghds.iot.IotApplication'
 	}
